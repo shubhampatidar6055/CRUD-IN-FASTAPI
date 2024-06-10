@@ -7,4 +7,4 @@ class Person(Model):
     phone = fields.CharField(200)
     Password = fields.CharField(200)
 
-    Tortoise.init_models(['user.models'], 'models')
+Tortoise.init_models(['user.models'], 'models')
