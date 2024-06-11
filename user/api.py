@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 from .models import *
-from .pydantic_models import user
+from .pydantic_models import user,Show,Name
 from passlib .context import CryptContext
+
 
 
 app = APIRouter()
@@ -26,5 +27,25 @@ async def create_user(data:user):
     else:
        user_obj = await Person.create(name=data.name,email=data.email,
                                        phone=data.phone,
-                                       password=get_password_hash(data.password))
+                                       Password=get_password_hash(data.password))
        return user_obj
+    
+@app.get("/show_data/")
+async def show_user():
+     user_obj = await Person.all()
+     return user_obj
+
+@app.post("/show_user_data/")
+async def show_user_data(data:Show):
+     user_obj = await Person.get(id=data.id)
+     return user_obj
+
+@app.post("/filter_data/")
+async def show_user_name(data:Name):
+     user_obj = await Person.filter(name=data.name)
+     return user_obj
+
+@app.delete("/delete_user/")
+async def delete_user(data:Show):
+     user_obj = await Person.get(id=data.id).delete()
+     return user_obj

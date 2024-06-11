@@ -5,3 +5,9 @@ class user(BaseModel):
     email:str
     phone:str
     password:str
+
+class Show(BaseModel):
+    id:int
+
+class Name(BaseModel):
+    name:str
