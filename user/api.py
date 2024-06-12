@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from .models import *
-from .pydantic_models import user,Show,Name
+from .pydantic_models import user,Show,Name,Update
 from passlib .context import CryptContext
 
 
@@ -49,3 +49,10 @@ async def show_user_name(data:Name):
 async def delete_user(data:Show):
      user_obj = await Person.get(id=data.id).delete()
      return user_obj
+
+@app.put("/update_user/")
+async def update_user(data:Update):
+     user_obj = await Person.get(id=data.id)
+     obj = await Person.filter(id=data.id).update(name=data.name,email=data.email,
+                                                  phone=data.phone,)
+     return obj

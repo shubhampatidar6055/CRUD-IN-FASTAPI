@@ -11,3 +11,9 @@ class Show(BaseModel):
 
 class Name(BaseModel):
     name:str
+
+class Update(BaseModel):
+    id:int
+    name:str
+    email:str
+    phone:str
