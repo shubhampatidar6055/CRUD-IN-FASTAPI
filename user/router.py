@@ -37,5 +37,19 @@ async def table(request:Request):
     user_data = await Person.all()
     return templates.TemplateResponse('table.html',{'request':request, "user_data":user_data})
     
+@router.get('/update/{id}', response_class=HTMLResponse)
+async def update(request:Request, id:int):
+    user_obj = await Person.get(id=id)
+    return templates.TemplateResponse('update.html',{"request":request, "user_obj":user_obj})
 
+@router.post('/update_user/')
+async def update_user(request:Request, id:int=Form(...), name:str = Form(...),
+                      email:str = Form(...),phone:str = Form(...)):
+    user_obj = await Person.get(id=id)
+    await Person.filter(id=id).update(name=name, email=email, phone=phone)
+    return RedirectResponse('/table/', status_code=status.HTTP_302_FOUND)
 
+@router.get('/delete/{id}', response_class=HTMLResponse)
+async def delete(request:Request, id:int):
+     user_obj = await Person.get(id=id).delete()
+     return RedirectResponse('/table/', status_code=status.HTTP_302_FOUND)

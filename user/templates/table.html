@@ -34,6 +34,8 @@ tr:nth-child(even) {
     <td>{{ i.name }}</td>
     <td>{{ i.email }}</td>
     <td>{{ i.phone }}</td>
+    <td><a href="/update/{{i.id}}">Update</a></td>
+    <td><a href="/delete/{{i.id}}">Delete</a></td>
   </tr>
   {% endfor %}
 </table>
